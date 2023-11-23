@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input and Request</title>
+</head>
+<body>
+
+    <h1>Input and Request Example</h1>
+
+    <form id="myForm">
+        <label for="inputData">Enter Data:</label>
+        <input type="text" id="inputData" name="inputData" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('myForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Get input value
+            var inputData = document.getElementById('inputData').value;
+
+            // Make a request using Fetch API
+            fetch('https://example.com/api', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ data: inputData })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the result
+                document.getElementById('result').innerHTML = '<p>Result: ' + data.result + '</p>';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = '<p>Error occurred</p>';
+            });
+        });
+    </script>
+
+</body>
+</html>
